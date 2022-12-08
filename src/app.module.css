@@ -15,7 +15,7 @@
   padding: 10px 20px;
 }
 
-.app__form input {
+.app__form select {
   width: 100%;
   height: 50px;
   font-size: 1.3em;
@@ -101,6 +101,6 @@
 }
 
 .final__number {
-  font-size: 5em;
+  font-size: 3em;
   color: #2193b0;
 }

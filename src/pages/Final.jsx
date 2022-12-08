@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react'
-
-import { getSecretName } from './../functions/getSecretName'
-
+import axios from 'axios'
+import { urlApi } from '../helpers/urlApi'
 import st from './../app.module.css'
 
-export const Final = () => {
+const usersNames = [
+    'David', 'Papa David', 'Mama David',
+    'Ruddy', 'Papa Ruddy', 'Mama Ruddy', 'Daniel',
+    'Diana', 'Alfredo', 'Nana', 'Pipe Hijo Diana',
+    'Fanny', 'Sebas', 'Pipe Hijo Fanny',
+    'Ricardo', 'Novio Ricardo'
+]
 
-    const [counter, setCounter] = useState(30)
+export const Final = ({ userName }) => {
+
+    const [counter, setCounter] = useState(16)
     const [friend, setFriend] = useState('')
 
     useEffect(() => {
@@ -17,7 +24,18 @@ export const Final = () => {
 
         if (counter === 0) {
             clearInterval(interval);
-            setFriend(getSecretName())
+
+            axios.get(urlApi + '/names').then(res => {
+                const data = res.data.usersNames
+                const secret = data[Math.floor(Math.random() * data.length)]
+                setFriend(secret)            
+                const newData = { name: userName, enabled: false, secretSanta: secret }
+                axios.post(urlApi + '/users', newData).then(res => {
+                    console.log(res)
+                    localStorage.setItem('secret', userName)
+                })
+            })
+
         }
 
         return () => clearInterval(interval);
@@ -34,7 +52,7 @@ export const Final = () => {
                         <img src="./gifarbol.gif" alt="" />
                         <p>{friend}</p>
                     </div>
-                    : <h4 className={st.final__number}>{counter}</h4>
+                    : <h4 className={st.final__number}>{usersNames[counter]}</h4>
             }
 
         </div>

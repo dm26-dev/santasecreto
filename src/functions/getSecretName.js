@@ -1,3 +1,15 @@
-const names = ['Ruddy', 'David', 'Alfredo', 'Sebas', 'Felipe', 'Daniel', 'Papa Ruddy', 'Mama Ruddy', 'Ricardo', 'Novio de Ricardo', 'Diana', 'Fanny', 'Mama David', 'Papa David']
+import axios from 'axios'
 
-export const getSecretName = () => names[Math.floor(Math.random() * names.length)] 
+import { urlApi } from '../helpers/urlApi'
+
+export const getSecretName = () => {
+
+    axios.get(urlApi + '/names').then(res => {
+        const data = res.data.usersNames
+        const dataAleatorio = data[Math.floor(Math.random() * data.length)]
+        console.log("dataAleatorio", dataAleatorio)
+        return dataAleatorio
+    })
+
+
+} 
