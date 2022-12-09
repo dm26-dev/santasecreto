@@ -5,6 +5,8 @@ import st from './../app.module.css'
 
 export const Final = ({ userName }) => {
 
+    console.log("Se ejecuta")
+
     const [counter, setCounter] = useState(30)
     const [friend, setFriend] = useState('')
 
@@ -26,7 +28,7 @@ export const Final = ({ userName }) => {
                 setFriend(secret)
                 const newData = { name: userName, enabled: false, secretSanta: secret }
 
-                axios.post(urlApi + '/users', newData).then(res => {                   
+                axios.post(urlApi + '/usersdb', newData).then(res => {                   
                     localStorage.setItem('secret', userName)
                 })
 
