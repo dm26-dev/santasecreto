@@ -9,7 +9,7 @@ import { Secret } from './pages/Secret'
 
 export const App = () => {
 
-  const [enable, setEnabled] = useState(false)
+  const [disabled, setDisabled] = useState(false)
   const [step, setStep] = useState(0)
   const [userName, setUserName] = useState('')
 
@@ -18,17 +18,19 @@ export const App = () => {
   useEffect(() => {
 
     const getName = localStorage.getItem('secret') || null
-
-    console.log("Usuario", getName)
-
+    
     if (getName) {
 
       axios.get(urlApi + '/users').then(res => {
         const users = res.data
         const user = users.find(us => us.name === getName)
         if (!user.enabled) {
-          setEnabled(true)
+          setDisabled(true)
           setSecret(user.secretSanta)
+        } else {
+          setDisabled(false)
+          setSecret('')
+          localStorage.clear()
         }
       })
 
@@ -36,7 +38,7 @@ export const App = () => {
 
   }, [])
 
-  if (enable) {
+  if (disabled) {
     return <Secret user={secret} />
   }
 

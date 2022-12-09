@@ -12,11 +12,9 @@ export const Login = ({ setStep, setUserName }) => {
         setUserName(name)
         setStep(1)
     }
-
-    // PASAR A UNA URL DE VERCEL DESPLEGADO
-    // MIENTRAS URL O LOCALHOST
+  
     useEffect(() => {
-        axios.get(urlApi + '/names').then(res => setNames(res.data.usersNames))
+        axios.get(urlApi + '/names').then(res => setNames(res.data.pendingNamesforChoose))
     }, [])
 
     return (

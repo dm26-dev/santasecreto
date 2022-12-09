@@ -3,17 +3,9 @@ import axios from 'axios'
 import { urlApi } from '../helpers/urlApi'
 import st from './../app.module.css'
 
-const usersNames = [
-    'David', 'Papa David', 'Mama David',
-    'Ruddy', 'Papa Ruddy', 'Mama Ruddy', 'Daniel',
-    'Diana', 'Alfredo', 'Nana', 'Pipe Hijo Diana',
-    'Fanny', 'Sebas', 'Pipe Hijo Fanny',
-    'Ricardo', 'Novio Ricardo'
-]
-
 export const Final = ({ userName }) => {
 
-    const [counter, setCounter] = useState(16)
+    const [counter, setCounter] = useState(30)
     const [friend, setFriend] = useState('')
 
     useEffect(() => {
@@ -25,15 +17,19 @@ export const Final = ({ userName }) => {
         if (counter === 0) {
             clearInterval(interval);
 
-            axios.get(urlApi + '/names').then(res => {
-                const data = res.data.usersNames
-                const secret = data[Math.floor(Math.random() * data.length)]
-                setFriend(secret)            
+            axios.get(urlApi + '/pendientes').then(res => {
+
+                const data = res.data.selectedNames
+                const filterData = [...data].filter(user => user !== userName)
+                
+                const secret = filterData[Math.floor(Math.random() * filterData.length)]
+                setFriend(secret)
                 const newData = { name: userName, enabled: false, secretSanta: secret }
-                axios.post(urlApi + '/users', newData).then(res => {
-                    console.log(res)
+
+                axios.post(urlApi + '/users', newData).then(res => {                   
                     localStorage.setItem('secret', userName)
                 })
+
             })
 
         }
@@ -52,7 +48,7 @@ export const Final = ({ userName }) => {
                         <img src="./gifarbol.gif" alt="" />
                         <p>{friend}</p>
                     </div>
-                    : <h4 className={st.final__number}>{usersNames[counter]}</h4>
+                    : <h4 className={st.final__number}>{counter}</h4>
             }
 
         </div>
