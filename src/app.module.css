@@ -32,7 +32,10 @@
 }
 
 .santasecreto h4 {
-  padding: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
   font-size: 1.7em;
   color: white;
   background: #2193b0;
