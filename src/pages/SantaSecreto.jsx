@@ -8,7 +8,7 @@ export const SantaSecreto = ({ userName, setStep }) => {
             <h4>Santa Secreto <BsReplyAll onClick={() => setStep(0)} /></h4>
             <br />
             <p>
-                Hola <span>{userName}</span>, esta fecha esta llena de amor y deseos,
+                Hola <span>{userName.user}</span>, esta fecha esta llena de amor y deseos,
                 te invitamos en esta <span>Navidad</span> a levantar nuestras copas en honor a
                 todos los momentos que nos han fortalezido como <span>Familia</span>
             </p>
@@ -17,7 +17,7 @@ export const SantaSecreto = ({ userName, setStep }) => {
                 en la Calle 23a N 55 - 135 Cabañas
             </p>
             <p>Valor del detalle <span>$30.000</span></p>
-            <p><span>No olvides tu regalo ;D</span></p>
+            {/* <p><span>No olvides tu regalo ;D</span></p> */}
             <p>Ahora si llego tu turno de escojer tu <span>Santa Secreto</span> </p>
             <p className={st.alert}>Solo puedes intentarlo una vez </p>
             <div className={st.santasecreto__button}>

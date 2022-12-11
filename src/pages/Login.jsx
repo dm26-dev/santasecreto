@@ -9,7 +9,7 @@ export const Login = ({ setStep, setUserName }) => {
     const [names, setNames] = useState([])
 
     const redirectStep1 = (name) => {
-        setUserName(name)
+        setUserName({ user: name, secret: '' })
         setStep(1)
     }
   
@@ -23,7 +23,7 @@ export const Login = ({ setStep, setUserName }) => {
             <div className={st.app__form} onSubmit={redirectStep1}>
 
                 <select onChange={e => redirectStep1(e.target.value)}>
-                    <option value="0">Escojer Participante</option>
+                    <option value="0">Selecciona tu Nombre</option>
                     {
                         names.map(user => <option value={user} key={user}>{user}</option>)
                     }

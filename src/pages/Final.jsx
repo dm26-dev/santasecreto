@@ -5,8 +5,6 @@ import st from './../app.module.css'
 
 export const Final = ({ userName }) => {
 
-    console.log("Se ejecuta")
-
     const [counter, setCounter] = useState(30)
     const [friend, setFriend] = useState('')
 
@@ -22,14 +20,14 @@ export const Final = ({ userName }) => {
             axios.get(urlApi + '/pendientes').then(res => {
 
                 const data = res.data.selectedNames
-                const filterData = [...data].filter(user => user !== userName)
-                
+                const filterData = [...data].filter(user => user !== userName.user)
+
                 const secret = filterData[Math.floor(Math.random() * filterData.length)]
                 setFriend(secret)
-                const newData = { name: userName, enabled: false, secretSanta: secret }
-
-                axios.post(urlApi + '/usersdb', newData).then(res => {                   
-                    localStorage.setItem('secret', userName)
+                const newData = { name: userName.user, enabled: false, secretSanta: secret }
+           
+                axios.post(urlApi + '/usersdb', newData).then(res => {
+                    localStorage.setItem('secret', JSON.stringify({ user: userName.user, secret }))
                 })
 
             })
