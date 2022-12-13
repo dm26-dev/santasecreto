@@ -25,7 +25,7 @@ export const Final = ({ userName }) => {
                 const secret = filterData[Math.floor(Math.random() * filterData.length)]
                 setFriend(secret)
                 const newData = { name: userName.user, enabled: false, secretSanta: secret }
-           
+
                 axios.post(urlApi + '/usersdb', newData).then(res => {
                     localStorage.setItem('santasecreto', JSON.stringify({ user: userName.user, secret }))
                 })
@@ -44,9 +44,11 @@ export const Final = ({ userName }) => {
 
             {
                 counter === 0
-                    ? <div className={st.final__final}>
+                    ? <div className={st.final__final}>                       
                         <img src="./gifarbol.gif" alt="" />
-                        <p>{friend}</p>
+                        <h1>Eres el Santa Secreto</h1>
+                        <p>De {friend} </p>
+                        <button onClick={() => window.location.reload()}>Recargar</button>
                     </div>
                     : <h4 className={st.final__number}>{counter}</h4>
             }
