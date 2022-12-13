@@ -6,7 +6,7 @@ import { SantaSecreto } from './pages/SantaSecreto'
 import { Final } from './pages/Final'
 import { Secret } from './pages/Secret'
 
-const getName = JSON.parse(localStorage.getItem('secret1')) || { user: '', secret: '' }
+const getName = JSON.parse(localStorage.getItem('santasecreto')) || { user: '', secret: '' }
 
 export const App = () => {
 
@@ -14,26 +14,26 @@ export const App = () => {
   const [userName, setUserName] = useState(getName)
 
   useEffect(() => {
-    localStorage.setItem('secret1', JSON.stringify(userName))
+    localStorage.setItem('santasecreto', JSON.stringify(userName))
   }, [userName])
 
   useEffect(() => {
     userName.secret ? setStep(4) : setStep(0)
 
-    const userLs1 = JSON.parse(localStorage.getItem('secret1'))
+    const userLs1 = JSON.parse(localStorage.getItem('santasecreto'))
 
     if (userLs1.user.length > 0) {
       axios.get(urlApi + '/names')
         .then(res => {          
           const pendientes = res.data.pendingNamesforChoose
-          const userLs = JSON.parse(localStorage.getItem('secret1'))
+          const userLs = JSON.parse(localStorage.getItem('santasecreto'))
           const validateUser = pendientes.find(user => user === userLs.user)
 
           if (!validateUser) {
             setStep(4)
           } else {
             setStep(0)
-            localStorage.setItem('secret1', JSON.stringify({ user: userLs.user, secret: '' }))
+            localStorage.setItem('santasecreto', JSON.stringify({ user: userLs.user, secret: '' }))
           }
 
         })

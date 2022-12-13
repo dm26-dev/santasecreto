@@ -27,7 +27,7 @@ export const Final = ({ userName }) => {
                 const newData = { name: userName.user, enabled: false, secretSanta: secret }
            
                 axios.post(urlApi + '/usersdb', newData).then(res => {
-                    localStorage.setItem('secret1', JSON.stringify({ user: userName.user, secret }))
+                    localStorage.setItem('santasecreto', JSON.stringify({ user: userName.user, secret }))
                 })
 
             })
